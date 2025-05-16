@@ -10,7 +10,7 @@ Este entregable incluye:
 ## 👥 Integrantes
 
 - Ruiz Palacios Luis Fernando  
-- Ramos Yorsh
+- Ramos Chambilla Yorsh Kalo
 
 
 

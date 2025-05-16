@@ -42,7 +42,7 @@ fun LoginScreen(
     onBack: () -> Unit = {},
     onClickRegister: () -> Unit = {},
     onClickForgotPass: () -> Unit = {},
-    onSucessLogin:() -> Unit =  {}
+    onSucessLogin: () -> Unit = {}
 
 ) {
     TopBarStarter { innerPadding ->
@@ -70,18 +70,11 @@ fun LoginBodyContent(
     val auth = Firebase.auth
     val activity = LocalView.current.context as Activity
 
-    val loginError =  remember { mutableStateOf("") }
-
+    val loginError = remember { mutableStateOf("") }
 
     // Estados
     var emailError by remember { mutableStateOf("") }
     var passwordError by remember { mutableStateOf("") }
-
-
-
-
-
-
 
     Column(
         modifier = modifier
@@ -100,17 +93,16 @@ fun LoginBodyContent(
             onValueChange = { emailOrUser.value = it },
             placeholder = { Text("Usuario o correo electrónico") },
             shape = RoundedCornerShape(50),
-            visualTransformation =VisualTransformation.None,
+            visualTransformation = VisualTransformation.None,
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
             supportingText = {
-                if(emailError.isNotEmpty()){
+                if (emailError.isNotEmpty()) {
                     Text(
                         text = emailError,
                         color = Color.Red
                     )
                 }
-
             }
         )
 
@@ -124,27 +116,26 @@ fun LoginBodyContent(
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(),
             supportingText = {
-                if(passwordError.isNotEmpty()){
+                if (passwordError.isNotEmpty()) {
                     Text(
                         text = passwordError,
                         color = Color.Red
                     )
                 }
             }
-
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        if(loginError.value.isNotEmpty()){
+        if (loginError.value.isNotEmpty()) {
             Text(
                 loginError.value,
                 color = Color.Red,
-                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp)
             )
         }
-
-
 
         OutlinedButton(
             onClick = {
@@ -155,52 +146,44 @@ fun LoginBodyContent(
                 emailError = validateEmail(emailOrUser.value).second
                 passwordError = validatePassword(password.value).second
 
-                if(isValidEmail && isValidPassword){
-                    auth.signInWithEmailAndPassword(emailOrUser.value,password.value).
-                    addOnCompleteListener(activity) { task ->
-                        if (task.isSuccessful){
-                            onSucessLogin()
-                        }else{
-                            loginError.value = when(task.exception){
-                                is FirebaseAuthInvalidCredentialsException -> "Correo o contraseña incorrecta"
-                                is FirebaseAuthInvalidUserException -> "Usuario no existe"
-                                else -> "Error al iniciar sesión. Intente de nuevo"
+                if (isValidEmail && isValidPassword) {
+                    auth.signInWithEmailAndPassword(emailOrUser.value, password.value)
+                        .addOnCompleteListener(activity) { task ->
+                            if (task.isSuccessful) {
+                                onSucessLogin()
+                            } else {
+                                loginError.value = when (task.exception) {
+                                    is FirebaseAuthInvalidCredentialsException -> "Correo o contraseña incorrecta"
+                                    is FirebaseAuthInvalidUserException -> "Usuario no existe"
+                                    else -> "Error al iniciar sesión. Intente de nuevo"
+                                }
                             }
                         }
-                    }
-
                 }
-
 
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
-
-        ) {
+            ) {
             Text("Ingresar", fontWeight = FontWeight.SemiBold)
         }
 
         TextButton(
             onClick = onClickRegister
-
         ) {
             Text(
                 "¿No tienes una cuenta? Registrate"
             )
-
         }
 
         TextButton(
             onClick = onClickForgotPass
-
         ) {
             Text(
                 "¿Olvidó su contraseña?"
             )
-
         }
-
     }
 }
 
