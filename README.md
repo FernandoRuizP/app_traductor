@@ -1,7 +1,16 @@
-PROYECTO DEL CURSO DSM (FISI TRADUCTOR)
+# FISI Traductor – Proyecto del Curso DSM
 
-PRIMER ENTREGABLE: CONTIENE LA PARTE UI Y LA CONEXIÓN A FIREBASE
+## 📦 Primer Entregable
 
-Integrantes:
-Ruiz Palacios Luis Fernando
-Ramos	Yorsh
+Este entregable incluye:
+
+- Interfaz de usuario (UI) desarrollada con Jetpack Compose.
+- Integración con Firebase para autenticación.
+
+## 👥 Integrantes
+
+- Ruiz Palacios Luis Fernando  
+- Ramos Yorsh
+
+
+
